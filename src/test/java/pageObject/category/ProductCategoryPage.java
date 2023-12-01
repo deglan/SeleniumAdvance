@@ -1,0 +1,71 @@
+package pageObject.category;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ProductCategoryPage extends CategoryBasePage {
+
+    @FindBy(css = "#top-menu > .category > a")
+    private List<WebElement> categories;
+
+    @FindBy(css = "#search_filters_wrapper")
+    private WebElement filtersSidebar;
+
+    @FindBy(css = "nav.breadcrumb ol li:nth-child(2) span[itemprop='name']")
+    private WebElement currentCategoryNameElement;
+
+    public ProductCategoryPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void selectCategory(String categoryName) {
+        WebElement categoryElement = categories.stream()
+                .filter(e -> e.getText().trim().equalsIgnoreCase(categoryName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Category not found: " + categoryName));
+
+        wait.until(ExpectedConditions.visibilityOf(categoryElement));
+        wait.until(ExpectedConditions.elementToBeClickable(categoryElement));
+
+        scrollToElementAndClick(categoryElement);
+    }
+
+    private void scrollToElementAndClick(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        element.click();
+    }
+
+    public String getCurrentCategoryName() {
+        wait.until(ExpectedConditions.visibilityOf(currentCategoryNameElement));
+        return currentCategoryNameElement.getText().trim().toUpperCase();
+    }
+
+    public boolean isFiltersSidebarDisplayed() {
+        return filtersSidebar.isDisplayed();
+    }
+
+    public int getProductCount() {
+        return productWebElements.size();
+    }
+
+    public List<String> getCategoryNames() {
+        categories.forEach(cat -> System.out.println("Category name: " + cat.getText()));
+
+        return categories.stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .collect(Collectors.toList());
+    }
+
+    public int getExpectedProductCount() {
+        wait.until(ExpectedConditions.visibilityOf(totalProductsInfo));
+        String countText = totalProductsInfo.getText().trim();
+        return Integer.parseInt(countText.split(" ")[2]);
+    }
+}

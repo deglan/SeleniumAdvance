@@ -1,0 +1,20 @@
+browser: chrome
+user:
+  gender: Mr.
+  firstName: John
+  lastName: Doe
+  email: john.doe@example.com
+  resetEmail: johndoe@examplecom
+  password: securePassword123
+  birthdate: 01/01/1990
+  offersOptIn: true
+  customerPrivacy: true
+  newsletterOptIn: false
+  acceptTerms: true
+urls:
+  homeUrl: http://146.59.32.4/index.php
+  registerUrl: ?controller=authentication&create_account=1
+  loginUrl: ?controller=authentication&back=my-account
+  loggedUserUrl: ?controller=my-account
+  forgotPassword: ?controller=password
+searchTest: HUMMINGBIRD
