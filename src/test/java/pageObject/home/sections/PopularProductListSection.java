@@ -46,6 +46,7 @@ public class PopularProductListSection {
         ProductElementMiniature randomProduct = getRandomProductElement();
         return randomProduct.getTitle();
     }
+
     public boolean isProductNameInSearchResults(String productName) {
         return getProductElements().stream()
                 .anyMatch(product -> product.isTitleMatching(productName));

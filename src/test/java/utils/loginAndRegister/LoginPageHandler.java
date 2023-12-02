@@ -1,4 +1,4 @@
-package formHandler.loginAndRegister;
+package utils.loginAndRegister;
 
 import configuration.TestContext;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +29,4 @@ public class LoginPageHandler {
         loginPage.enterPassword("wrong_password");
         loginPage.clickSignIn();
     }
-
-
 }

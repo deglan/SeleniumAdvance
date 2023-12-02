@@ -2,7 +2,7 @@ package tests.search;
 
 import base.UrlProvider;
 import driver.DriverSetUp;
-import formHandler.search.SearchPageHandler;
+import utils.search.SearchPageHandler;
 import org.junit.jupiter.api.Test;
 import pageObject.home.HomePage;
 import pageObject.home.sections.SearchResultsSection;

@@ -1,4 +1,4 @@
-package formHandler.loginAndRegister;
+package utils.loginAndRegister;
 
 import model.User;
 import model.component.user.UserFactory;

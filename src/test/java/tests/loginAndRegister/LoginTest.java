@@ -3,7 +3,7 @@ package tests.loginAndRegister;
 import base.UrlProvider;
 import configuration.TestContext;
 import driver.DriverSetUp;
-import formHandler.loginAndRegister.LoginPageHandler;
+import utils.loginAndRegister.LoginPageHandler;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import pageObject.loginAndRegister.LoginPage;
@@ -56,7 +56,7 @@ public class LoginTest extends DriverSetUp {
 
             assertThat(driver.getCurrentUrl())
                     .as("Check if the current URL is correct")
-                    .isEqualTo(UrlProvider.FORGOT_PASSWORD.getUrl());
+                    .isEqualTo(UrlProvider.BASKET_URL.getUrl());
         }).doesNotThrowAnyException();
     }
 }

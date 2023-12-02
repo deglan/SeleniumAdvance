@@ -1,7 +1,7 @@
 package tests.loginAndRegister;
 
 import base.UrlProvider;
-import formHandler.loginAndRegister.RegisterPageHandler;
+import utils.loginAndRegister.RegisterPageHandler;
 import org.junit.jupiter.api.Test;
 import driver.DriverSetUp;
 import pageObject.loginAndRegister.RegisterPage;

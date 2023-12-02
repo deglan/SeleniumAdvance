@@ -1,8 +1,6 @@
 package base;
 
 import configuration.TestContext;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +11,7 @@ public enum UrlProvider {
     LOGIN_URL("urls.loginUrl"),
     LOGGED_USER_URL("urls.loggedUserUrl"),
     FORGOT_PASSWORD_URL("urls.forgotPasswordUrl"),
-    FORGOT_PASSWORD("urls.basketUrl");
+    BASKET_URL("urls.basketUrl");
 
     private final String configKey;
 

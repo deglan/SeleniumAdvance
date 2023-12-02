@@ -1,4 +1,4 @@
-package formHandler.search;
+package utils.search;
 
 import configuration.TestContext;
 import org.openqa.selenium.WebDriver;

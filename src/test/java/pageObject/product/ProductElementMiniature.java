@@ -2,7 +2,6 @@ package pageObject.product;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +10,7 @@ import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductElementMiniature {
-    
+
     private WebElement productElement;
 
     @FindBy(css = ".h3.product-title a")
