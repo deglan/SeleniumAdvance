@@ -11,15 +11,14 @@ public class HeaderSection {
 
     @FindBy(id = "_desktop_logo")
     private WebElement desktopLogo;
-
     @FindBy(id = "contact-link")
     private WebElement contactUsLink;
-
     @FindBy(css = "a.logout")
     private WebElement signOutLink;
-
     @FindBy(css = "a.account")
     private WebElement accountLink;
+    @FindBy(css = ".cart-products-count")
+    private WebElement cartProductsCount;
 
     public HeaderSection(WebDriver driver) {
         this.driver = driver;
@@ -40,5 +39,11 @@ public class HeaderSection {
 
     public void goToAccountPage() {
         accountLink.click();
+    }
+
+    public int getCartCount() {
+        String countText = cartProductsCount.getText();
+        String numericCount = countText.replaceAll("[^0-9]", "");
+        return Integer.parseInt(numericCount);
     }
 }

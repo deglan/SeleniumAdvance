@@ -12,7 +12,8 @@ public enum UrlProvider {
     REGISTER_URL("urls.registerUrl"),
     LOGIN_URL("urls.loginUrl"),
     LOGGED_USER_URL("urls.loggedUserUrl"),
-    FORGOT_PASSWORD("urls.forgotPassword");
+    FORGOT_PASSWORD_URL("urls.forgotPasswordUrl"),
+    FORGOT_PASSWORD("urls.basketUrl");
 
     private final String configKey;
 

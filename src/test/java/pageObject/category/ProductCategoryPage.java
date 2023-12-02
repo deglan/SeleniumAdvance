@@ -1,6 +1,8 @@
 package pageObject.category;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,5 +69,15 @@ public class ProductCategoryPage extends CategoryBasePage {
         wait.until(ExpectedConditions.visibilityOf(totalProductsInfo));
         String countText = totalProductsInfo.getText().trim();
         return Integer.parseInt(countText.split(" ")[2]);
+    }
+
+    public WebElement getProductElement(String productName) {
+        for (WebElement product : productWebElements) {
+            WebElement titleElement = product.findElement(By.cssSelector(".h3.product-title a"));
+            if (titleElement.getText().trim().equalsIgnoreCase(productName)) {
+                return product;
+            }
+        }
+        throw new NoSuchElementException("Product not found: " + productName);
     }
 }

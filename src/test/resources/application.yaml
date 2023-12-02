@@ -16,5 +16,6 @@ urls:
   registerUrl: ?controller=authentication&create_account=1
   loginUrl: ?controller=authentication&back=my-account
   loggedUserUrl: ?controller=my-account
-  forgotPassword: ?controller=password
+  forgotPasswordUrl: ?controller=password
+  basketUrl: ?controller=cart&action=show
 searchTest: HUMMINGBIRD

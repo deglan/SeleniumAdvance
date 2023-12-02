@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CategoryTest extends DriverSetUp {
 
     @Test
-    public void testTopCategories() {
+    public void shouldCheckCategories() {
         driver.get(UrlProvider.HOME_URL.getUrl());
         ProductCategoryPage categoryPage = new ProductCategoryPage(driver);
 
@@ -32,7 +32,7 @@ public class CategoryTest extends DriverSetUp {
     }
 
     @Test
-    public void testPriceFilters() {
+    public void shouldCheckPriceFilter() {
         driver.get(UrlProvider.HOME_URL.getUrl());
         ProductCategoryPage categoryPage = new ProductCategoryPage(driver);
         FilterSection filterSection = new FilterSection(driver);

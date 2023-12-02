@@ -1,12 +1,10 @@
 package tests.search;
 
 import base.UrlProvider;
-import configuration.TestContext;
 import driver.DriverSetUp;
 import formHandler.search.SearchPageHandler;
 import org.junit.jupiter.api.Test;
 import pageObject.home.HomePage;
-import pageObject.home.sections.ProductListSection;
 import pageObject.home.sections.SearchResultsSection;
 import pageObject.home.sections.SearchWidgetSection;
 
