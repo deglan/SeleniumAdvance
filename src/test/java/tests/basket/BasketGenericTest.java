@@ -33,7 +33,6 @@ public class BasketGenericTest extends DriverSetUp {
             driver.get(UrlProvider.BASKET_URL.getUrl());
             BasketPage basketPage = new BasketPage(driver);
 
-            // Verification steps
             BasketHandler.verifyBasketContents(testBasket, basketPage);
             BasketHandler.verifyTotalPrice(testBasket, basketPage);
 
@@ -46,29 +45,22 @@ public class BasketGenericTest extends DriverSetUp {
         HomePage homePage = new HomePage(driver);
         Basket testBasket = new Basket();
 
-        // Add two random products to the basket
         BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
         BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
 
-        // Go to basket page
         driver.get(UrlProvider.BASKET_URL.getUrl());
         BasketPage basketPage = new BasketPage(driver);
 
-        // Verify initial total price
         BasketHandler.verifyTotalPrice(testBasket, basketPage);
 
-        // Remove the first product
         basketPage.removeProduct(testBasket.getProducts().keySet().iterator().next());
         testBasket.removeProduct(testBasket.getProducts().keySet().iterator().next());
 
-        // Verify updated total price
         BasketHandler.verifyTotalPrice(testBasket, basketPage);
 
-        // Remove the last product
         basketPage.removeProduct(testBasket.getProducts().keySet().iterator().next());
         testBasket.removeProduct(testBasket.getProducts().keySet().iterator().next());
 
-        // Check if empty basket label is displayed
         Assertions.assertThat(basketPage.isEmptyBasketLabelDisplayed()).as("Check if empty basket label is displayed").isTrue();
     }
 

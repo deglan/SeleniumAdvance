@@ -55,6 +55,7 @@ public class FilterSection extends CategoryBasePage {
     }
 
     public void clearFilter() {
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(clearFilter)));
         clearFilter.click();
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(clearFilter)));
     }

@@ -3,6 +3,9 @@ package base;
 import configuration.TestContext;
 import lombok.Getter;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 @Getter
 public enum UrlProvider {
 
@@ -18,7 +21,6 @@ public enum UrlProvider {
     UrlProvider(String configKey) {
         this.configKey = configKey;
     }
-
     public String getUrl() {
         TestContext testContext = TestContext.getInstance();
         String specificPath = testContext.getProperty(this.configKey);

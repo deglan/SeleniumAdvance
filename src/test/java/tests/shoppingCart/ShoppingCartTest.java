@@ -1,6 +1,7 @@
 package tests.shoppingCart;
 
 import base.UrlProvider;
+import configuration.TestContext;
 import driver.DriverSetUp;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ import pageObject.product.ProductPage;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartTest extends DriverSetUp {
 
@@ -22,23 +24,23 @@ public class ShoppingCartTest extends DriverSetUp {
         driver.get(UrlProvider.HOME_URL.getUrl());
         
         ProductCategoryPage categoryPage = new ProductCategoryPage(driver);
-        categoryPage.selectCategory("Art");
-        WebElement productElement = categoryPage.getProductElement("THE BEST IS YET POSTER");
+        categoryPage.selectCategory(testContext.getProperty("shoppingCartTest.selectCategory"));
+        WebElement productElement = categoryPage.getProductElement(testContext.getProperty("shoppingCartTest.getProductElement"));
         ProductElementMiniature productElementMiniature = new ProductElementMiniature(productElement);
-        productElementMiniature.selectProduct("THE BEST IS YET POSTER");
+        productElementMiniature.selectProduct(testContext.getProperty("shoppingCartTest.getProductElement"));
 
         ProductPage productPage = new ProductPage(driver);
-        productPage.setQuantity(3);
+        productPage.setQuantity(testContext.getProperty("shoppingCartTest.setQuantity"));
         productPage.addToCart();
 
         CartModal cartModal = new CartModal(driver);
-        BigDecimal expectedPrice = new BigDecimal("29.00");
-        BigDecimal expectedSubtotal = new BigDecimal("87.00");
-        BigDecimal expectedTotal = new BigDecimal("94.00");
+        BigDecimal expectedPrice = new BigDecimal(testContext.getProperty("shoppingCartTest.expectedPrice").toString());
+        BigDecimal expectedSubtotal = new BigDecimal(testContext.getProperty("shoppingCartTest.expectedSubtotal").toString());
+        BigDecimal expectedTotal = new BigDecimal(testContext.getProperty("shoppingCartTest.expectedTotal").toString());
 
-        assertEquals(expectedPrice, productPage.getProductPrice());
-        assertEquals(expectedSubtotal, cartModal.getSubtotal());
-        assertEquals(expectedTotal, cartModal.getTotal());
+        assertEquals(0, expectedPrice.compareTo(productPage.getProductPrice()));
+        assertEquals(0, expectedSubtotal.compareTo(cartModal.getSubtotal()));
+        assertEquals(0, expectedTotal.compareTo(cartModal.getTotal()));
 
         cartModal.continueShopping();
 

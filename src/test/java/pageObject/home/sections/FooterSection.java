@@ -10,11 +10,9 @@ public class FooterSection {
 
     private WebDriver driver;
 
-    // Footer elements
     @FindBy(id = "footer")
     private WebElement footer;
 
-    // Other specific elements within the footer
 
     public FooterSection(WebDriver driver) {
         this.driver = driver;

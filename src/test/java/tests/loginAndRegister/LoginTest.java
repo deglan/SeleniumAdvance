@@ -56,7 +56,7 @@ public class LoginTest extends DriverSetUp {
 
             assertThat(driver.getCurrentUrl())
                     .as("Check if the current URL is correct")
-                    .isEqualTo(UrlProvider.BASKET_URL.getUrl());
+                    .isEqualTo(UrlProvider.FORGOT_PASSWORD_URL.getUrl());
         }).doesNotThrowAnyException();
     }
 }

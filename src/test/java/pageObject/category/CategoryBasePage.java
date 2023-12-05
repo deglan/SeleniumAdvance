@@ -61,20 +61,4 @@ public class CategoryBasePage {
         return getProducts().size();
     }
 
-    public String getTotalProductsText() {
-        return totalProductsInfo.getText();
-    }
-
-    public boolean verifyTotalProductsText() {
-        String totalProductsText = getTotalProductsText();
-        int expectedCount = Integer.parseInt(totalProductsText.split(" ")[2]);
-        int actualCount = getProductCount();
-        return expectedCount == actualCount;
-    }
-
-    public List<String> getProductTitles() {
-        return getProducts().stream()
-                .map(ProductElementMiniature::getTitle)
-                .collect(Collectors.toList());
-    }
 }

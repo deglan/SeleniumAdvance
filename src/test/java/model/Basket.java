@@ -47,8 +47,4 @@ public class Basket {
         }
         return total;
     }
-
-    public BasketLine getProductDetails(String productName) {
-        return products.get(productName);
-    }
 }

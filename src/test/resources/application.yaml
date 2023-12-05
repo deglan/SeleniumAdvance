@@ -9,8 +9,19 @@ user:
   birthdate: 01/01/1990
   offersOptIn: true
   customerPrivacy: true
-  newsletterOptIn: false
+  newsletterOptIn: true
   acceptTerms: true
+  company: sii_v1
+  vatNumber: A123456
+  address: Krakow
+  addressComplement: Tisher 8
+  zipCode: 30-600
+  city: Krakow
+  country: Poland
+  phone: 456-456-456
+
+
+
 urls:
   homeUrl: http://146.59.32.4/index.php
   registerUrl: ?controller=authentication&create_account=1
@@ -19,3 +30,11 @@ urls:
   forgotPasswordUrl: ?controller=password
   basketUrl: ?controller=cart&action=show
 searchTest: HUMMINGBIRD
+
+shoppingCartTest:
+  selectCategory: Art
+  getProductElement: THE BEST IS YET POSTER
+  setQuantity: 3
+  expectedPrice: 29.00
+  expectedSubtotal: 87.00
+  expectedTotal: 94.00

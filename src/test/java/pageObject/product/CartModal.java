@@ -1,5 +1,6 @@
 package pageObject.product;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +31,7 @@ public class CartModal {
     @FindBy(css = ".btn-secondary")
     private WebElement continueShoppingButton;
 
-    @FindBy(css = ".btn-primary")
+    @FindBy(css = "#blockcart-modal .modal-body .btn-primary")
     private WebElement proceedToCheckoutButton;
 
     // Constructor
@@ -66,6 +67,8 @@ public class CartModal {
     }
 
     public void proceedToCheckout() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("blockcart-modal")));
         proceedToCheckoutButton.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("blockcart-modal")));
     }
 }

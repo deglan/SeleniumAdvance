@@ -82,22 +82,6 @@ public class BasketPage {
         return productsMap.get(productName);
     }
 
-    public void updateProductQuantity(String productName, int newQuantity) {
-        BasketLine line = productsMap.get(productName);
-        if (line != null) {
-            line.setQuantity(newQuantity);
-            line.setTotalPrice(line.getProduct().getPrice().multiply(BigDecimal.valueOf(newQuantity)));
-        }
-    }
-
-    public BigDecimal getTotalPrice() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (BasketLine line : productsMap.values()) {
-            total = total.add(line.getTotalPrice());
-        }
-        return total;
-    }
-
     public boolean isEmptyBasketLabelDisplayed() {
         try {
             return emptyBasketLabel.isDisplayed();
