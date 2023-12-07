@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
-public class HeaderSection {
-
-    private WebDriver driver;
+public class HeaderSection extends BasePage {
 
     @FindBy(id = "_desktop_logo")
     private WebElement desktopLogo;
@@ -21,24 +20,23 @@ public class HeaderSection {
     private WebElement cartProductsCount;
 
     public HeaderSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void clickOnDesktopLogo() {
-        desktopLogo.click();
+        click(desktopLogo);
     }
 
     public void goToContactUsPage() {
-        contactUsLink.click();
+        click(contactUsLink);
     }
 
     public void signOut() {
-        signOutLink.click();
+        click(signOutLink);
     }
 
     public void goToAccountPage() {
-        accountLink.click();
+        click(accountLink);
     }
 
     public int getCartCount() {

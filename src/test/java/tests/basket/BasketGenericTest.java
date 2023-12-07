@@ -7,6 +7,8 @@ import model.BasketLine;
 import model.Product;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObject.basket.BasketPage;
 import pageObject.home.HomePage;
 import pageObject.product.ProductElementMiniature;
@@ -17,22 +19,15 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Random;
 
-public class BasketGenericTest extends DriverSetUp {
+public class BasketGenericTest extends BasketSetUp {
 
     @Test
     public void shouldCheckBasket() {
-            driver.get(UrlProvider.HOME_URL.getUrl());
-
-            HomePage homePage = new HomePage(driver);
-            Basket testBasket = new Basket();
 
             for (int i = 0; i < 10; i++) {
                 BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
             }
-
             driver.get(UrlProvider.BASKET_URL.getUrl());
-            BasketPage basketPage = new BasketPage(driver);
-
             BasketHandler.verifyBasketContents(testBasket, basketPage);
             BasketHandler.verifyTotalPrice(testBasket, basketPage);
 
@@ -41,15 +36,10 @@ public class BasketGenericTest extends DriverSetUp {
     @Test
     public void shouldRemoveProductsFromBasket() {
 
-        driver.get(UrlProvider.HOME_URL.getUrl());
-        HomePage homePage = new HomePage(driver);
-        Basket testBasket = new Basket();
-
         BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
         BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
 
         driver.get(UrlProvider.BASKET_URL.getUrl());
-        BasketPage basketPage = new BasketPage(driver);
 
         BasketHandler.verifyTotalPrice(testBasket, basketPage);
 

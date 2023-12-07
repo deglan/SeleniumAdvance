@@ -6,20 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OrderHistorySection {
-
-    private WebDriver driver;
+public class OrderHistorySection extends BasePage {
 
     @FindBy(css = "table.table.table-striped.table-bordered tbody tr")
     private List<WebElement> orderRows;
 
     public OrderHistorySection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public List<OrderDetails> getOrders() {

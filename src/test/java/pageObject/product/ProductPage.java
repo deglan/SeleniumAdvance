@@ -5,12 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
+import pageObject.base.BasePage;
 
 import java.math.BigDecimal;
 
-public class ProductPage {
-
-    private WebDriver driver;
+public class ProductPage extends BasePage {
 
     @FindBy(css = "h1.h1")
     private WebElement productName;
@@ -28,7 +27,7 @@ public class ProductPage {
     private WebElement quantityInput;
 
     public ProductPage(WebDriver driver) {
-        PageFactory.initElements(new DefaultElementLocatorFactory(driver), this);
+        super(driver);
     }
 
     public String getProductName() {
@@ -41,11 +40,10 @@ public class ProductPage {
     }
 
     public void addToCart() {
-        addToCartButton.click();
+        click(addToCartButton);
     }
 
     public void setQuantity(int quantity) {
-        quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(quantity));
+        sendKeys(quantityInput, String.valueOf(quantity));
     }
 }

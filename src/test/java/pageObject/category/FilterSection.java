@@ -1,6 +1,7 @@
 package pageObject.category;
 
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 
 public class FilterSection extends CategoryBasePage {
 
-    @FindBy(css = "#_desktop_search_filters_clear_all > button")
+    @FindBy(css = "button.js-search-filters-clear-all")
     private WebElement clearFilter;
 
     @FindBy(css = "div[id*='slider-range'] > a:nth-child(2)")
@@ -39,8 +40,15 @@ public class FilterSection extends CategoryBasePage {
         Keys direction = type.equals("FROM") ? Keys.ARROW_RIGHT : Keys.ARROW_LEFT;
 
         while (type.equals("FROM") ? getPrice(type).compareTo(targetPrice) < 0 : getPrice(type).compareTo(targetPrice) > 0) {
-            filterBar.sendKeys(direction);
-            wait.until(ExpectedConditions.invisibilityOf(spinner));
+            try{
+                filterBar.sendKeys(direction);
+                wait.until(ExpectedConditions.invisibilityOf(spinner));
+            }catch (StaleElementReferenceException e) {
+                wait.until(ExpectedConditions.stalenessOf(filterBar));
+                filterBar.sendKeys(direction);
+                wait.until(ExpectedConditions.invisibilityOf(spinner));
+            }
+
         }
     }
 
@@ -55,8 +63,7 @@ public class FilterSection extends CategoryBasePage {
     }
 
     public void clearFilter() {
-        wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(clearFilter)));
-        clearFilter.click();
-        wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(clearFilter)));
+        click(clearFilter);
+        wait.until(ExpectedConditions.invisibilityOf(clearFilter));
     }
 }

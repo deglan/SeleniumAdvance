@@ -6,11 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
-public class CheckoutPage {
-
-    private WebDriver driver;
-    private Actions actions;
+public class CheckoutPage extends BasePage {
 
     @FindBy(id = "checkout-addresses-step")
     private WebElement checkoutAddressesStepSection;
@@ -40,9 +38,7 @@ public class CheckoutPage {
     private WebElement addressErrorAlert;
 
     public CheckoutPage(WebDriver driver) {
-        this.driver = driver;
-        actions = new Actions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public boolean isCheckoutAddressesStepDisplayed() {
@@ -55,28 +51,27 @@ public class CheckoutPage {
     }
 
     public void clickEditAddress() {
-        editAddressButton.click();
+        click(editAddressButton);
     }
 
     public void clickDeleteAddress() {
-        deleteAddressButton.click();
+        click(deleteAddressButton);
     }
 
     public void clickAddNewAddress() {
-        addNewAddressLink.click();
+        click(addNewAddressLink);
     }
 
     public void clickAddNewInvoiceAddress() {
-        actions.scrollByAmount(10,10).scrollToElement(addNewInvoiceAddressLink).perform();
-        addNewInvoiceAddressLink.click();
+        click(addNewInvoiceAddressLink);
     }
 
     public void clickDifferentInvoiceAddress() {
-        differentInvoiceAddressLink.click();
+        click(differentInvoiceAddressLink);
     }
 
     public void clickContinue() {
-        continueButton.click();
+        click(continueButton);
     }
 
     public boolean isAddressErrorAlertDisplayed() {

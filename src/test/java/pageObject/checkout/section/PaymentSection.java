@@ -3,24 +3,21 @@ package pageObject.checkout.section;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
-public class PaymentSection {
-
-    private WebDriver driver;
+public class PaymentSection extends BasePage {
 
     @FindBy(id = "payment-option-1")
     private WebElement payByCheckOption;
 
-    @FindBy(css = "input[name='conditions_to_approve[terms-and-conditions]']")
+    @FindBy(id = "conditions_to_approve[terms-and-conditions]")
     private WebElement termsAndConditionsCheckbox;
 
     @FindBy(css = "#payment-confirmation button[type='submit']")
     private WebElement placeOrderButton;
 
     public PaymentSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void selectPayByCheck() {
@@ -28,12 +25,10 @@ public class PaymentSection {
     }
 
     public void agreeToTermsAndConditions() {
-        if (!termsAndConditionsCheckbox.isSelected()) {
-            termsAndConditionsCheckbox.click();
-        }
+        termsAndConditionsCheckbox.click();
     }
 
     public void clickPlaceOrder() {
-        placeOrderButton.click();
+        click(placeOrderButton);
     }
 }

@@ -1,5 +1,6 @@
 package pageObject.home.sections;
 
+import pageObject.base.BasePage;
 import pageObject.product.ProductElementMiniature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,16 +10,13 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchResultsSection {
-
-    private WebDriver driver;
+public class SearchResultsSection extends BasePage {
 
     @FindBy(css = ".product-miniature")
     private List<WebElement> productMiniatures;
 
     public SearchResultsSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public List<ProductElementMiniature> getSearchResults() {

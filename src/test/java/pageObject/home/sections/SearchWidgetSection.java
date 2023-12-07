@@ -5,12 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
 import java.util.List;
 
-public class SearchWidgetSection {
-
-    private WebDriver driver;
+public class SearchWidgetSection extends BasePage {
 
     @FindBy(id = "search_widget")
     private WebElement searchWidget;
@@ -27,18 +26,16 @@ public class SearchWidgetSection {
     private List<WebElement> productNames;
 
     public SearchWidgetSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void enterSearchQuery(String query) {
-        searchInput.clear();
-        searchInput.sendKeys(query);
+        sendKeys(searchInput, query);
     }
 
     public void performSearch(String query) {
-        enterSearchQuery(query);
-        searchButton.click();
+        sendKeys(searchInput, query);
+        click(searchButton);
     }
 
     public String getSearchInputValue() {

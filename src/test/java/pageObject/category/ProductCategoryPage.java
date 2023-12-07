@@ -32,15 +32,7 @@ public class ProductCategoryPage extends CategoryBasePage {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Category not found: " + categoryName));
 
-        wait.until(ExpectedConditions.visibilityOf(categoryElement));
-        wait.until(ExpectedConditions.elementToBeClickable(categoryElement));
-
-        scrollToElementAndClick(categoryElement);
-    }
-
-    private void scrollToElementAndClick(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        element.click();
+        click(categoryElement);
     }
 
     public String getCurrentCategoryName() {

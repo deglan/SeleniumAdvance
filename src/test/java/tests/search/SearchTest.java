@@ -11,17 +11,13 @@ import pageObject.home.sections.SearchWidgetSection;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SearchTest extends DriverSetUp {
-
-    private SearchPageHandler searchPageHandler;
+public class SearchTest extends SearchSetUp {
 
     @Test
     public void shouldSearchDropDown() {
         driver.get(UrlProvider.HOME_URL.getUrl());
-        searchPageHandler = new SearchPageHandler(driver);
 
         searchPageHandler.performSearch(testContext);
-
         assertThat(searchPageHandler.isSearchQueryInAllDropdownItems(testContext))
                 .as("Check if all dropdown items contain the search query")
                 .isTrue();
@@ -30,8 +26,7 @@ public class SearchTest extends DriverSetUp {
     @Test
     public void shouldFindProductInSearchResults() {
         driver.get(UrlProvider.HOME_URL.getUrl());
-        HomePage homePage = new HomePage(driver);
-        SearchResultsSection searchResultsSection = new SearchResultsSection(driver);
+
 
         String randomProductName = homePage.getProductListSection().getRandomProductName();
 

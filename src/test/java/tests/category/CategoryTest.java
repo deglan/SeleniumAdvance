@@ -12,12 +12,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CategoryTest extends DriverSetUp {
+public class CategoryTest extends CategorySetUp {
 
     @Test
     public void shouldCheckCategories() {
-        driver.get(UrlProvider.HOME_URL.getUrl());
-        ProductCategoryPage categoryPage = new ProductCategoryPage(driver);
 
         List<String> topCategories = categoryPage.getCategoryNames();
         for (String categoryName : topCategories) {
@@ -33,9 +31,7 @@ public class CategoryTest extends DriverSetUp {
 
     @Test
     public void shouldCheckPriceFilter() {
-        driver.get(UrlProvider.HOME_URL.getUrl());
-        ProductCategoryPage categoryPage = new ProductCategoryPage(driver);
-        FilterSection filterSection = new FilterSection(driver);
+
         categoryPage.selectCategory("Accessories");
         int initialProductCount = categoryPage.getProductCount();
         filterSection.setPrice(new BigDecimal("13.00"), new BigDecimal("15.00"));

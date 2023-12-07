@@ -3,19 +3,12 @@ package pageObject.checkout.section;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.base.BasePage;
 
-import java.time.Duration;
 
-public class ShippingSection {
-
-    private WebDriver driver;
-    private Actions actions;
-    private WebDriverWait wait;
+public class ShippingSection extends BasePage {
 
     @FindBy(id = "delivery_option_1")
     private WebElement pickUpInStoreOption;
@@ -27,18 +20,15 @@ public class ShippingSection {
     private WebElement continueButton;
 
     public ShippingSection(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        this.actions = new Actions(driver);
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void selectPickUpInStore() {
-        pickUpInStoreOption.click();
+        click(pickUpInStoreOption);
     }
 
     public void selectMyCarrier() {
-        myCarrierOption.click();
+        click(myCarrierOption);
     }
 
     public void clickContinue() {
@@ -47,7 +37,7 @@ public class ShippingSection {
             wait.until(ExpectedConditions.elementToBeClickable(continueButton));
 
             if (continueButton.isDisplayed() && continueButton.isEnabled()) {
-                continueButton.click();
+                click(continueButton);
             }
         } catch (Exception e) {
             JavascriptExecutor executor = (JavascriptExecutor) driver;

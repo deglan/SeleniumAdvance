@@ -1,5 +1,6 @@
 package pageObject.category;
 
+import pageObject.base.BasePage;
 import pageObject.product.ProductElementMiniature;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -14,11 +15,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CategoryBasePage {
-
-    protected WebDriver driver;
-    protected WebDriverWait wait;
-    protected Actions actions;
+public class CategoryBasePage extends BasePage {
 
     @FindBy(css = "#js-product-list .product-miniature")
     protected List<WebElement> productWebElements;
@@ -34,21 +31,7 @@ public class CategoryBasePage {
     protected WebElement resetFiltersButton;
 
     public CategoryBasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        this.actions = new Actions(driver);
-        PageFactory.initElements(driver, this);
-    }
-
-    public void clickElement(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-        try {
-            element.click();
-        } catch (ElementClickInterceptedException e) {
-            actions.scrollToElement(element);
-            actions.scrollByAmount(0,10);
-            element.click();
-        }
+        super(driver);
     }
 
     public List<ProductElementMiniature> getProducts() {

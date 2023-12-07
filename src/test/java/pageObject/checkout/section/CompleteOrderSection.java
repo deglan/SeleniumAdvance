@@ -4,12 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
 import java.util.List;
 
-public class CompleteOrderSection {
-
-    private WebDriver driver;
+public class CompleteOrderSection extends BasePage {
 
     @FindBy(css = "div#order-details ul li")
     private List<WebElement> orderDetails;
@@ -18,8 +17,7 @@ public class CompleteOrderSection {
     private WebElement totalAmount;
 
     public CompleteOrderSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public String getOrderReference() {

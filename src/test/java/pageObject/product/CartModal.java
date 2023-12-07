@@ -7,14 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.base.BasePage;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 
-public class CartModal {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class CartModal extends BasePage {
 
     @FindBy(css = ".product-name")
     private WebElement productName;
@@ -34,41 +32,34 @@ public class CartModal {
     @FindBy(css = "#blockcart-modal .modal-body .btn-primary")
     private WebElement proceedToCheckoutButton;
 
-    // Constructor
     public CartModal(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    // Methods
     public String getProductName() {
         return productName.getText();
     }
 
     public BigDecimal getProductPrice() {
-        String priceText = productPrice.getText().replace("$", "").trim();
-        return new BigDecimal(priceText);
+        return getBigDecimalFromElement(productPrice);
     }
 
     public BigDecimal getSubtotal() {
         wait.until(ExpectedConditions.visibilityOf(subtotal));
-        String subtotalText = subtotal.getText().replace("$", "").trim();
-        return new BigDecimal(subtotalText);
+        return getBigDecimalFromElement(subtotal);
     }
 
     public BigDecimal getTotal() {
-        String totalText = total.getText().replace("$", "").trim();
-        return new BigDecimal(totalText);
+        return getBigDecimalFromElement(total);
     }
 
     public void continueShopping() {
-        continueShoppingButton.click();
+        click(continueShoppingButton);
     }
 
     public void proceedToCheckout() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("blockcart-modal")));
-        proceedToCheckoutButton.click();
+        click(proceedToCheckoutButton);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("blockcart-modal")));
     }
 }

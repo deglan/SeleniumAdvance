@@ -1,4 +1,4 @@
-package tests.loginAndRegister;
+package tests.login;
 
 import base.UrlProvider;
 import configuration.TestContext;
@@ -13,29 +13,19 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class LoginTest extends DriverSetUp {
-    private LoginPageHandler loginPageHandler = new LoginPageHandler();
+public class LoginTest extends LoginSetUp {
 
 
     @Test
     public void shouldLoginCorrectly() {
-
-        driver.get(UrlProvider.LOGIN_URL.getUrl());
         loginPageHandler.loginCorrect(testContext, driver);
-
         assertEquals(UrlProvider.LOGGED_USER_URL.getUrl(), driver.getCurrentUrl());
-
-        Cookie sessionCookiePrestaShop = driver.manage().getCookieNamed("PrestaShop-1c6beeb2122e9a8fd46d17038d1c8c6a");
-        Cookie sessionCookiePHPSESSID = driver.manage().getCookieNamed("PHPSESSID");
-
-        TestContext.getInstance().setCookie(sessionCookiePrestaShop);
-        TestContext.getInstance().setCookie(sessionCookiePHPSESSID);
     }
 
 
     @Test
     public void shouldLoginIncorrect() {
-        driver.get(UrlProvider.LOGIN_URL.getUrl());
+
         loginPageHandler.loginInCorrect(driver);
         assertThat(loginPageHandler.getErrorMessage().isDisplayed())
                 .as("Error message should be displayed")
@@ -43,8 +33,8 @@ public class LoginTest extends DriverSetUp {
 
     @Test
     public void testForgotPassword() {
-        driver.get(UrlProvider.LOGIN_URL.getUrl());
-        LoginPage loginPage = new LoginPage(driver);
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
         loginPage.clickForgotPassword();
         loginPage.enterResetEmail(testContext.getProperty("user.resetEmail"));
         loginPage.clickSendResetLink();

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.base.BasePage;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BasketPage {
+public class BasketPage extends BasePage {
 
     @FindBy(id = "cart-subtotal-products")
     private WebElement subtotalProducts;
@@ -37,18 +38,13 @@ public class BasketPage {
     private WebElement emptyBasketLabel;
 
     private Map<String, BasketLine> productsMap;
-    private WebDriver driver;
-    private WebDriverWait wait;
 
     public BasketPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
-        productsMap = new HashMap<>();
-        initializeProductsMap();
+        super(driver);
     }
 
-    private void initializeProductsMap() {
+    public void initializeProductsMap() {
+        productsMap = new HashMap<>();
         for (WebElement item : cartItems) {
             BasketLineSection lineSection = new BasketLineSection(driver, item);
             String name = lineSection.getProductName();
@@ -75,7 +71,7 @@ public class BasketPage {
     }
 
     public void proceedToCheckout() {
-        checkoutButton.click();
+        click(checkoutButton);
     }
 
     public BasketLine getProductDetails(String productName) {

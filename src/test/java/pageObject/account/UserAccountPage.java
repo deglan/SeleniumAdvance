@@ -6,11 +6,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pageObject.account.section.OrderHistorySection;
 import pageObject.account.section.UserAccountMainSection;
+import pageObject.base.BasePage;
 import pageObject.home.sections.HeaderSection;
 
-public class UserAccountPage {
-
-    private WebDriver driver;
+public class UserAccountPage extends BasePage {
 
     private UserAccountMainSection userAccountMainSection;
     private OrderHistorySection orderHistorySection;
@@ -19,16 +18,14 @@ public class UserAccountPage {
     private WebElement accountButton;
 
     public UserAccountPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         this.userAccountMainSection = new UserAccountMainSection(driver);
         this.orderHistorySection = new OrderHistorySection(driver);
-        PageFactory.initElements(driver, this);
     }
 
 
     public void openAccountDetails() {
-        accountButton.click();
-
+        click(accountButton);
     }
 
     public void openHistoryDetails() {

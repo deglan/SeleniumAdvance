@@ -12,14 +12,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.base.BasePage;
 
 import java.time.Duration;
 
 @Slf4j
-public class CheckoutAddressFormSection {
-
-    private Actions actions;
-    private WebDriverWait wait;
+public class CheckoutAddressFormSection extends BasePage {
 
     @FindBy(name = "alias")
     private WebElement aliasInput;
@@ -62,15 +60,11 @@ public class CheckoutAddressFormSection {
     private WebElement useSameAddressCheckbox;
 
     public CheckoutAddressFormSection(WebDriver driver) {
-        this.actions = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public CheckoutAddressFormSection(WebDriver driver, Builder builder) {
-        actions = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        super(driver);
         setCompany(builder.company);
         setVatNumber(builder.vatNumber);
         setAddress(builder.address);
@@ -80,82 +74,52 @@ public class CheckoutAddressFormSection {
         setPhone(builder.phone);
     }
 
-    public void setAlias(String alias) {
-        aliasInput.clear();
-        aliasInput.sendKeys(alias);
-    }
-
-    public void setFirstName(String firstName) {
-        wait.until(ExpectedConditions.elementToBeClickable(firstNameInput));
-        firstNameInput.clear();
-        firstNameInput.sendKeys(firstName);
-    }
-
-    public void setLastName(String lastName) {
-        wait.until(ExpectedConditions.visibilityOfAllElements(lastNameInput));
-        wait.until(ExpectedConditions.elementToBeClickable(lastNameInput));
-        lastNameInput.clear();
-        lastNameInput.sendKeys(lastName);
-    }
-
     public void setCompany(String company) {
-        wait.until(ExpectedConditions.elementToBeClickable(companyInput));
-        companyInput.clear();
-        companyInput.sendKeys(company);
+        sendKeys(companyInput,company);
     }
 
     public void setVatNumber(String vatNumber) {
-        wait.until(ExpectedConditions.elementToBeClickable(vatNumberInput));
-        vatNumberInput.clear();
-        vatNumberInput.sendKeys(vatNumber);
+        sendKeys(vatNumberInput, vatNumber);
     }
 
     public void setAddress(String address) {
-        wait.until(ExpectedConditions.elementToBeClickable(addressInput));
-        addressInput.clear();
-        addressInput.sendKeys(address);
+        sendKeys(addressInput, address);
     }
 
     public void setAddressComplement(String addressComplement) {
-        addressComplementInput.clear();
-        addressComplementInput.sendKeys(addressComplement);
+        sendKeys(addressComplementInput, addressComplement);
     }
 
     public void setPostalCode(String postalCode) {
-        postalCodeInput.clear();
-        postalCodeInput.sendKeys(postalCode);
+        sendKeys(postalCodeInput, postalCode);
     }
 
     public void setCity(String city) {
-        cityInput.clear();
-        cityInput.sendKeys(city);
+        sendKeys(cityInput, city);
     }
 
     public void selectCountry(String country) {
-        actions.scrollToElement(countrySelect).perform();
-        countrySelect.click();
+        click(countrySelect);
         new Select(countrySelect).selectByVisibleText(country);
         wait.until(ExpectedConditions.elementToBeClickable(countrySelect));
     }
 
     public void setPhone(String phone) {
-        phoneInput.clear();
-        phoneInput.sendKeys(phone);
+        sendKeys(phoneInput, phone);
     }
 
     public void checkUseSameAddress(boolean useSame) {
         if (useSameAddressCheckbox.isSelected() != useSame) {
-            useSameAddressCheckbox.click();
+            click(useSameAddressCheckbox);
         }
     }
 
     public void clickCancel() {
-        cancelButton.click();
+        click(cancelButton);
     }
 
     public void clickContinueButton(WebDriver driver) {
-            actions.scrollByAmount(10,100).scrollToElement(continueButton).perform();
-            continueButton.click();
+            click(continueButton);
     }
 
     public static class Builder {

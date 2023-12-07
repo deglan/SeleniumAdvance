@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
-public class UserAccountMainSection {
-
-    private WebDriver driver;
+public class UserAccountMainSection extends BasePage {
 
     @FindBy(id = "identity-link")
     private WebElement informationLink;
@@ -28,31 +27,30 @@ public class UserAccountMainSection {
     private WebElement signOutLink;
 
     public UserAccountMainSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void openInformation() {
-        informationLink.click();
+        click(informationLink);
     }
 
     public void openAddresses() {
-        addressesLink.click();
+        click(addressesLink);
     }
 
     public void openOrderHistory() {
-        orderHistoryLink.click();
+        click(orderHistoryLink);
     }
 
     public void openCreditSlips() {
-        creditSlipsLink.click();
+        click(creditSlipsLink);
     }
 
     public void openGDPR() {
-        gdprLink.click();
+        click(gdprLink);
     }
 
     public void signOut() {
-        signOutLink.click();
+        click(signOutLink);
     }
 }

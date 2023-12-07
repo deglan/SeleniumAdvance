@@ -1,16 +1,13 @@
 package pageObject.loginAndRegister;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
-@AllArgsConstructor
-public class RegisterPage {
 
-    private WebDriver driver;
+public class RegisterPage extends BasePage {
 
     @FindBy(css = "input[name='id_gender'][value='1']")
     private WebElement genderMr;
@@ -41,8 +38,7 @@ public class RegisterPage {
     private WebElement errorMessage;
 
     public RegisterPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void selectGender(String gender) {
@@ -54,29 +50,27 @@ public class RegisterPage {
     }
 
     public void enterFirstName(String firstName) {
-        firstNameLocator.sendKeys(firstName);
+        sendKeys(firstNameLocator, firstName);
     }
 
     public void enterLastName(String lastName) {
-        lastNameLocator.sendKeys(lastName);
+        sendKeys(lastNameLocator, lastName);
     }
 
     public void enterEmail(String email) {
-        emailLocator.sendKeys(email);
+        sendKeys(emailLocator, email);
     }
 
     public void enterPassword(String password) {
-        passwordLocator.sendKeys(password);
+        sendKeys(passwordLocator, password);
     }
 
     public void enterBirthdate(String birthdate) {
-        birthdateLocator.sendKeys(birthdate);
+        sendKeys(birthdateLocator, birthdate);
     }
 
     public void setOffersOptIn(boolean offersOptIn) {
-        if (offersOptIn && !offersOptInLocator.isSelected()) {
-            offersOptInLocator.click();
-        }
+        offersOptInLocator.click();
     }
 
     public void setCustomerPrivacy(boolean customerPrivacy) {
@@ -98,6 +92,6 @@ public class RegisterPage {
     }
 
     public void submitForm() {
-        saveButtonLocator.click();
+        click(saveButtonLocator);
     }
 }

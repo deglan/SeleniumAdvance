@@ -5,11 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObject.base.BasePage;
 
 @Getter
-public class LoginPage {
-
-    private WebDriver driver;
+public class LoginPage extends BasePage {
 
     @FindBy(name = "email")
     private WebElement emailInput;
@@ -31,33 +30,34 @@ public class LoginPage {
     private WebElement sendResetLinkButton;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public void enterEmail(String email) {
-        emailInput.sendKeys(email);
+        sendKeys(emailInput, email);
     }
 
     public void enterPassword(String password) {
-        passwordInput.sendKeys(password);
+        sendKeys(passwordInput, password);
     }
+
     public void enterResetEmail(String email) {
-        resetEmailInput.sendKeys(email);
+        sendKeys(resetEmailInput, email);
     }
 
     public void clickSignIn() {
-        signInButton.click();
+        click(signInButton);
     }
 
     public void clickCreateAccount() {
-        createAccountLink.click();
+        click(createAccountLink);
     }
 
     public void clickSendResetLink() {
-        sendResetLinkButton.click();
+        click(sendResetLinkButton);
     }
+
     public void clickForgotPassword() {
-        forgotPasswordLink.click();
+        click(forgotPasswordLink);
     }
 }

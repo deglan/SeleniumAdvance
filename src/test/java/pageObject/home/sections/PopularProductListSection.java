@@ -1,5 +1,6 @@
 package pageObject.home.sections;
 
+import pageObject.base.BasePage;
 import pageObject.product.ProductElementMiniature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,9 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class PopularProductListSection {
-
-    private WebDriver driver;
+public class PopularProductListSection extends BasePage {
 
     @FindBy(css = ".featured-products")
     private WebElement featuredProductsSection;
@@ -21,8 +20,7 @@ public class PopularProductListSection {
 
 
     public PopularProductListSection(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public List<ProductElementMiniature> getProductElements() {
