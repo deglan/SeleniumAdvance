@@ -1,3 +1,4 @@
+wait: 10
 browser: chrome
 user:
   gender: Mr.
