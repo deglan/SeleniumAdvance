@@ -12,7 +12,7 @@ public class RegisterSetUp extends DriverSetUp {
 
     @BeforeEach
     public void setUpRegister() {
-         registerPageHandler = new RegisterPageHandler();
-         registerPage = new RegisterPage(driver);
+        registerPageHandler = new RegisterPageHandler();
+        registerPage = new RegisterPage(driver);
     }
 }

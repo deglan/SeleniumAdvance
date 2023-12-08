@@ -1,11 +1,7 @@
 package tests.search;
 
 import base.UrlProvider;
-import driver.DriverSetUp;
-import utils.search.SearchPageHandler;
 import org.junit.jupiter.api.Test;
-import pageObject.home.HomePage;
-import pageObject.home.sections.SearchResultsSection;
 import pageObject.home.sections.SearchWidgetSection;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

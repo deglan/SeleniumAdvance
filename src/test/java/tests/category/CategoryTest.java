@@ -1,10 +1,6 @@
 package tests.category;
 
-import base.UrlProvider;
-import driver.DriverSetUp;
 import org.junit.jupiter.api.Test;
-import pageObject.category.FilterSection;
-import pageObject.category.ProductCategoryPage;
 
 import java.math.BigDecimal;
 import java.util.List;

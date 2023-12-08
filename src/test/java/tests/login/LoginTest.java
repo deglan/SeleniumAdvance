@@ -1,12 +1,7 @@
 package tests.login;
 
 import base.UrlProvider;
-import configuration.TestContext;
-import driver.DriverSetUp;
-import utils.loginAndRegister.LoginPageHandler;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Cookie;
-import pageObject.loginAndRegister.LoginPage;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -29,7 +24,8 @@ public class LoginTest extends LoginSetUp {
         loginPageHandler.loginInCorrect(driver);
         assertThat(loginPageHandler.getErrorMessage().isDisplayed())
                 .as("Error message should be displayed")
-                .isTrue();  }
+                .isTrue();
+    }
 
     @Test
     public void testForgotPassword() {

@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageObject.home.sections.SearchWidgetSection;
 
-
 import java.util.List;
 
 public class SearchPageHandler {

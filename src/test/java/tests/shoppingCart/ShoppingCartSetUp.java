@@ -2,11 +2,9 @@ package tests.shoppingCart;
 
 import driver.DriverSetUp;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebElement;
 import pageObject.category.ProductCategoryPage;
 import pageObject.home.sections.HeaderSection;
 import pageObject.product.CartModal;
-import pageObject.product.ProductElementMiniature;
 import pageObject.product.ProductPage;
 
 public class ShoppingCartSetUp extends DriverSetUp {
@@ -19,9 +17,9 @@ public class ShoppingCartSetUp extends DriverSetUp {
 
     @BeforeEach
     public void setUpShoppingCart() {
-         categoryPage = new ProductCategoryPage(driver);
-         productPage = new ProductPage(driver);
-         cartModal = new CartModal(driver);
-         headerSection = new HeaderSection(driver);
+        categoryPage = new ProductCategoryPage(driver);
+        productPage = new ProductPage(driver);
+        cartModal = new CartModal(driver);
+        headerSection = new HeaderSection(driver);
     }
 }

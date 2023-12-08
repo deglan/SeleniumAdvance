@@ -1,21 +1,8 @@
 package tests.checkout;
 
 import base.UrlProvider;
-import driver.DriverSetUp;
-import model.Basket;
 import org.junit.jupiter.api.Test;
-import pageObject.account.UserAccountPage;
-import pageObject.account.section.OrderHistorySection;
-import pageObject.basket.BasketPage;
-import pageObject.checkout.CheckoutPage;
-import pageObject.checkout.section.CompleteOrderSection;
-import pageObject.checkout.section.PaymentSection;
-import pageObject.checkout.section.ShippingSection;
-import pageObject.home.HomePage;
-import pageObject.product.CartModal;
 import utils.basket.BasketHandler;
-import utils.checkout.CheckoutAddressFormHandler;
-import utils.loginAndRegister.LoginPageHandler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

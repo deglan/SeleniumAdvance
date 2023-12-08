@@ -8,14 +8,14 @@ import utils.search.SearchPageHandler;
 
 public class SearchSetUp extends DriverSetUp {
 
-     SearchPageHandler searchPageHandler;
+    SearchPageHandler searchPageHandler;
     HomePage homePage;
     SearchResultsSection searchResultsSection;
 
-     @BeforeEach
+    @BeforeEach
     public void setUpSearch() {
-         searchPageHandler = new SearchPageHandler(driver);
-          homePage = new HomePage(driver);
-          searchResultsSection = new SearchResultsSection(driver);
-     }
+        searchPageHandler = new SearchPageHandler(driver);
+        homePage = new HomePage(driver);
+        searchResultsSection = new SearchResultsSection(driver);
+    }
 }

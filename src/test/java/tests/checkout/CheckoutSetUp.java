@@ -40,11 +40,11 @@ public class CheckoutSetUp extends DriverSetUp {
         orderHistorySection = new OrderHistorySection(driver);
         homePage = new HomePage(driver);
         testBasket = new Basket();
-         cartModal = new CartModal(driver);
-         basketPage = new BasketPage(driver);
-         addressPage = new CheckoutPage(driver);
-         shippingSection = new ShippingSection(driver);
-         paymentSection = new PaymentSection(driver);
-         completeOrderSection = new CompleteOrderSection(driver);
+        cartModal = new CartModal(driver);
+        basketPage = new BasketPage(driver);
+        addressPage = new CheckoutPage(driver);
+        shippingSection = new ShippingSection(driver);
+        paymentSection = new PaymentSection(driver);
+        completeOrderSection = new CompleteOrderSection(driver);
     }
 }

@@ -1,21 +1,13 @@
 package tests.shoppingCart;
 
 import base.UrlProvider;
-import configuration.TestContext;
-import driver.DriverSetUp;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
-import pageObject.category.FilterSection;
-import pageObject.category.ProductCategoryPage;
-import pageObject.home.sections.HeaderSection;
-import pageObject.product.CartModal;
 import pageObject.product.ProductElementMiniature;
-import pageObject.product.ProductPage;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartTest extends ShoppingCartSetUp {
 

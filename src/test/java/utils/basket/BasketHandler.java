@@ -41,13 +41,7 @@ public class BasketHandler {
             String productName = entry.getKey();
             BasketLine expectedLine = entry.getValue();
 
-            // Debug: Print the product name being checked
-            System.out.println("Checking product: " + productName);
-
             BasketLine actualLine = basketPage.getProductDetails(productName);
-
-            // Debug: Print actualLine to see if it's null
-            System.out.println("Actual Line: " + actualLine);
 
             Assertions.assertThat(actualLine).as("Check if product exists in the basket: %s", productName).isNotNull();
 
