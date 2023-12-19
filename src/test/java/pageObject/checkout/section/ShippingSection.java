@@ -32,16 +32,6 @@ public class ShippingSection extends BasePage {
     }
 
     public void clickContinue() {
-        try {
-            actions.moveToElement(continueButton).perform();
-            wait.until(ExpectedConditions.elementToBeClickable(continueButton));
-
-            if (continueButton.isDisplayed() && continueButton.isEnabled()) {
-                click(continueButton);
-            }
-        } catch (Exception e) {
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", continueButton);
-        }
+        click(continueButton);
     }
 }
