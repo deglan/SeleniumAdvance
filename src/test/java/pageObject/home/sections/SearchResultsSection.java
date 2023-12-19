@@ -20,7 +20,9 @@ public class SearchResultsSection extends BasePage {
     }
 
     public List<ProductElementMiniature> getSearchResults() {
-        return productMiniatures.stream().map(ProductElementMiniature::new).collect(Collectors.toList());
+        return productMiniatures.stream()
+                .map(element -> new ProductElementMiniature(driver, element))
+                .collect(Collectors.toList());
     }
 
     public boolean isProductNameInSearchResults(String productName) {

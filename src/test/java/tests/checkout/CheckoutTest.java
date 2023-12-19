@@ -2,10 +2,22 @@ package tests.checkout;
 
 import base.UrlProvider;
 import org.junit.jupiter.api.Test;
-import utils.basket.BasketHandler;
+import pageObject.account.UserAccountPage;
+import pageObject.account.section.OrderHistorySection;
+import pageObject.basket.BasketPage;
+import pageObject.checkout.CheckoutPage;
+import pageObject.checkout.section.CompleteOrderSection;
+import pageObject.checkout.section.PaymentSection;
+import pageObject.checkout.section.ShippingSection;
+import pageObject.product.CartModal;
+import step.basket.BasketStep;
+import step.checkout.CheckoutAddressFormStep;
+import step.loginAndRegister.LoginPageStep;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CheckoutTest extends CheckoutSetUp {
 
@@ -13,39 +25,45 @@ public class CheckoutTest extends CheckoutSetUp {
     public void shouldCreateFullOrder() {
 
         driver.get(UrlProvider.LOGIN_URL.getUrl());
-        loginPageHandler.loginCorrect(testContext, driver);
+        at(LoginPageStep.class).loginCorrect(testContext, driver);
 
         assertEquals(UrlProvider.LOGGED_USER_URL.getUrl(), driver.getCurrentUrl());
 
-        BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
+        with(BasketStep.class).addRandomProductToBasket(expectedBasket);
 
+        at(CartModal.class).proceedToCheckout();
 
-        cartModal.proceedToCheckout();
+        at(BasketPage.class).proceedToCheckout();
 
+        at(CheckoutPage.class)
+                .clickDifferentInvoiceAddress();
 
-        basketPage.proceedToCheckout();
+        at(CheckoutPage.class)
+                .clickAddNewInvoiceAddress();
 
+        at(CheckoutAddressFormStep.class)
+                .changeCountry("Poland");
 
-        addressPage.clickDifferentInvoiceAddress();
-        addressPage.clickAddNewInvoiceAddress();
+        at(CheckoutAddressFormStep.class)
+                .fillAndSubmitAddressForm(testContext, driver);
 
-        addressFormHandler.changeCountry("Poland");
+        at(ShippingSection.class).clickContinue();
 
-        addressFormHandler.fillAndSubmitAddressForm(testContext, driver);
+        at(PaymentSection.class).selectPayByCheck();
+        at(PaymentSection.class).agreeToTermsAndConditions();
+        at(PaymentSection.class).clickPlaceOrder();
 
-        shippingSection.clickContinue();
+        Optional<String> orderReference = at(CompleteOrderSection.class).getOrderReference();
 
+        assertTrue(orderReference.isPresent(), "Order reference is not present");
 
-        paymentSection.selectPayByCheck();
-        paymentSection.agreeToTermsAndConditions();
-        paymentSection.clickPlaceOrder();
+        at(UserAccountPage.class)
+                .openAccountDetails();
 
-        String orderReference = completeOrderSection.getOrderReference();
-
-        userAccountPage.openAccountDetails();
-
-        userAccountPage.openHistoryDetails();
-        assertTrue(orderHistorySection.isOrderPresent(orderReference));
+        at(UserAccountPage.class).openHistoryDetails();
+        assertThat(orderReference.get())
+                .isIn(at(OrderHistorySection.class)
+                        .getOrderReference(orderReference.get()));
 
     }
 }

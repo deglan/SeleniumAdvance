@@ -24,17 +24,19 @@ public class OrderHistorySection extends BasePage {
         return orderRows.stream().map(this::createOrderDetailsFromRow).collect(Collectors.toList());
     }
 
-    private OrderDetails createOrderDetailsFromRow(WebElement row) {
-        String reference = row.findElement(By.cssSelector("th")).getText();
-        String date = row.findElement(By.cssSelector("td:nth-child(2)")).getText();
-        String total = row.findElement(By.cssSelector("td.text-xs-right")).getText();
-        String payment = row.findElement(By.cssSelector("td.hidden-md-down")).getText();
-        String status = row.findElement(By.cssSelector("td:nth-child(5) span")).getText();
-
-        return new OrderDetails(reference, date, total, payment, status);
+    public List<String> getOrderReference(String orderReference) {
+        return this.getOrders().stream()
+                .map(OrderDetails::getReference)
+                .collect(Collectors.toList());
     }
 
-    public boolean isOrderPresent(String orderReference) {
-        return getOrders().stream().anyMatch(order -> order.getReference().equals(orderReference));
+    private OrderDetails createOrderDetailsFromRow(WebElement row) {
+        OrderRowComponent orderRowComponent = new OrderRowComponent(row);
+        String reference = orderRowComponent.getReference();
+        String date = orderRowComponent.getDate();
+        String total = orderRowComponent.getTotal();
+        String payment = orderRowComponent.getPayment();
+        String status = orderRowComponent.getStatus();
+        return new OrderDetails(reference, date, total, payment, status);
     }
 }

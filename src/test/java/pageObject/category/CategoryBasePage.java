@@ -36,7 +36,7 @@ public class CategoryBasePage extends BasePage {
 
     public List<ProductElementMiniature> getProducts() {
         return productWebElements.stream()
-                .map(ProductElementMiniature::new)
+                .map(element -> new ProductElementMiniature(driver, element))
                 .collect(Collectors.toList());
     }
 

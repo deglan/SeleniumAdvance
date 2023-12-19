@@ -1,23 +1,17 @@
 package pageObject.basket;
 
+import model.Basket;
 import model.BasketLine;
-import model.Product;
+import model.converter.BasketModelConverter;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObject.base.BasePage;
 
-import java.math.BigDecimal;
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class BasketPage extends BasePage {
+public class BasketPage extends BasePage implements BasketModelConverter {
 
     @FindBy(id = "cart-subtotal-products")
     private WebElement subtotalProducts;
@@ -37,26 +31,11 @@ public class BasketPage extends BasePage {
     @FindBy(css = ".no-items")
     private WebElement emptyBasketLabel;
 
-    private Map<String, BasketLine> productsMap;
 
     public BasketPage(WebDriver driver) {
         super(driver);
     }
 
-    public void initializeProductsMap() {
-        productsMap = new HashMap<>();
-        for (WebElement item : cartItems) {
-            BasketLineSection lineSection = new BasketLineSection(driver, item);
-            String name = lineSection.getProductName();
-            BigDecimal price = new BigDecimal(lineSection.getProductPrice().replace("$", ""));
-            int quantity = lineSection.getProductQuantity();
-
-            Product product = new Product(name, price, quantity);
-            BasketLine basketLine = new BasketLine(product, price.multiply(BigDecimal.valueOf(quantity)), quantity);
-
-            productsMap.put(name, basketLine);
-        }
-    }
 
     public String getSubtotalProducts() {
         return subtotalProducts.getText();
@@ -74,9 +53,6 @@ public class BasketPage extends BasePage {
         click(checkoutButton);
     }
 
-    public BasketLine getProductDetails(String productName) {
-        return productsMap.get(productName);
-    }
 
     public boolean isEmptyBasketLabelDisplayed() {
         try {
@@ -86,15 +62,23 @@ public class BasketPage extends BasePage {
         }
     }
 
-    public void removeProduct(String productName) {
-        for (WebElement item : cartItems) {
+    @Override
+    public Basket toBasketModel() {
+        Basket basket = new Basket();
+        for (WebElement item : getCartItems()) {
             BasketLineSection lineSection = new BasketLineSection(driver, item);
-            if (lineSection.getProductName().equals(productName)) {
-                lineSection.removeProduct();
-                wait.until(ExpectedConditions.stalenessOf(item));
-                break;
-            }
+            BasketLine basketLine = lineSection.toBasketLine();
+            basket.addProduct(basketLine.getProduct(), basketLine.getQuantity());
         }
-        productsMap.remove(productName);
+        return basket;
+    }
+
+    @Override
+    public BasketLine toBasketLine() {
+        return null;
+    }
+
+    public List<WebElement> getCartItems() {
+        return cartItems;
     }
 }

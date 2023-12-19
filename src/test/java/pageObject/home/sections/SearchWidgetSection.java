@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import pageObject.base.BasePage;
 
 import java.util.List;
@@ -13,10 +12,8 @@ public class SearchWidgetSection extends BasePage {
 
     @FindBy(id = "search_widget")
     private WebElement searchWidget;
-
     @FindBy(name = "s")
     private WebElement searchInput;
-
     @FindBy(css = "#search_widget > form > button")
     private WebElement searchButton;
     @Getter
@@ -43,11 +40,7 @@ public class SearchWidgetSection extends BasePage {
     }
 
     public boolean isProductNameInSearchResults(String productName) {
-        for (WebElement product : searchResultsDropdownItems) {
-            if (product.getText().contains(productName)) {
-                return true;
-            }
-        }
-        return false;
+        return searchResultsDropdownItems.stream()
+                .anyMatch(product -> product.getText().contains(productName));
     }
 }

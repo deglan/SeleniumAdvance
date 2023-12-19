@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pageObject.category.util.FilterDirection;
 
 import java.math.BigDecimal;
 
@@ -30,25 +31,35 @@ public class FilterSection extends CategoryBasePage {
         super(driver);
     }
 
-    public void setPrice(BigDecimal from, BigDecimal to) {
-        adjustPrice(from, "FROM");
-        adjustPrice(to, "TO");
+    public void setPriceRange(BigDecimal from, BigDecimal to) {
+        changeFilterScope(from, FilterDirection.FROM.getMessage());
+        changeFilterScope(to, FilterDirection.TO.getMessage());
     }
 
-    private void adjustPrice(BigDecimal targetPrice, String type) {
-        WebElement filterBar = type.equals("FROM") ? filterBarLeft : filterBarRight;
-        Keys direction = type.equals("FROM") ? Keys.ARROW_RIGHT : Keys.ARROW_LEFT;
+    private void changeFilterScope(BigDecimal targetPrice, String type) {
+        WebElement filterBar = type.equals(FilterDirection.FROM.getMessage()) ? filterBarLeft : filterBarRight;
+        Keys direction = type.equals(FilterDirection.FROM.getMessage()) ? Keys.ARROW_RIGHT : Keys.ARROW_LEFT;
 
-        while (type.equals("FROM") ? getPrice(type).compareTo(targetPrice) < 0 : getPrice(type).compareTo(targetPrice) > 0) {
-            try{
-                filterBar.sendKeys(direction);
-                wait.until(ExpectedConditions.invisibilityOf(spinner));
-            }catch (StaleElementReferenceException e) {
-                wait.until(ExpectedConditions.stalenessOf(filterBar));
-                filterBar.sendKeys(direction);
-                wait.until(ExpectedConditions.invisibilityOf(spinner));
-            }
+        int currentLoop = 0;
+        while (checkFilterChangeDirection(targetPrice, type) && (currentLoop < (Integer) testContext.getProperty("max-loop"))) {
+            waitForSpinner(filterBar, direction);
+            currentLoop++;
+        }
+    }
 
+    private boolean checkFilterChangeDirection(BigDecimal targetPrice, String type) {
+        return type.equals(FilterDirection.FROM.getMessage()) ?
+                getPrice(type).compareTo(targetPrice) < 0 : getPrice(type).compareTo(targetPrice) > 0;
+    }
+
+    public void waitForSpinner(WebElement element, Keys direction){
+        try{
+            element.sendKeys(direction);
+            wait.until(ExpectedConditions.invisibilityOf(spinner));
+        }catch (StaleElementReferenceException e) {
+            wait.until(ExpectedConditions.stalenessOf(element));
+            element.sendKeys(direction);
+            wait.until(ExpectedConditions.invisibilityOf(spinner));
         }
     }
 

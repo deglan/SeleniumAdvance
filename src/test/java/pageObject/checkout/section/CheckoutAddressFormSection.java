@@ -1,20 +1,12 @@
 package pageObject.checkout.section;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObject.base.BasePage;
-
-import java.time.Duration;
 
 @Slf4j
 public class CheckoutAddressFormSection extends BasePage {
@@ -63,49 +55,43 @@ public class CheckoutAddressFormSection extends BasePage {
         super(driver);
     }
 
-    public CheckoutAddressFormSection(WebDriver driver, Builder builder) {
-        super(driver);
-        setCompany(builder.company);
-        setVatNumber(builder.vatNumber);
-        setAddress(builder.address);
-        setAddressComplement(builder.addressComplement);
-        setPostalCode(builder.postalCode);
-        setCity(builder.city);
-        setPhone(builder.phone);
+    public CheckoutAddressFormSection setCompany(String company) {
+        sendKeys(companyInput, company);
+        return this;
     }
 
-    public void setCompany(String company) {
-        sendKeys(companyInput,company);
-    }
-
-    public void setVatNumber(String vatNumber) {
+    public CheckoutAddressFormSection setVatNumber(String vatNumber) {
         sendKeys(vatNumberInput, vatNumber);
+        return this;
     }
 
-    public void setAddress(String address) {
+    public CheckoutAddressFormSection setAddress(String address) {
         sendKeys(addressInput, address);
+        return this;
     }
 
-    public void setAddressComplement(String addressComplement) {
+    public CheckoutAddressFormSection setAddressComplement(String addressComplement) {
         sendKeys(addressComplementInput, addressComplement);
+        return this;
     }
 
-    public void setPostalCode(String postalCode) {
+    public CheckoutAddressFormSection setPostalCode(String postalCode) {
         sendKeys(postalCodeInput, postalCode);
+        return this;
     }
 
-    public void setCity(String city) {
+    public CheckoutAddressFormSection setCity(String city) {
         sendKeys(cityInput, city);
+        return this;
     }
 
     public void selectCountry(String country) {
-        click(countrySelect);
-        new Select(countrySelect).selectByVisibleText(country);
-        wait.until(ExpectedConditions.elementToBeClickable(countrySelect));
+        selectByVisibleText(countrySelect, country);
     }
 
-    public void setPhone(String phone) {
+    public CheckoutAddressFormSection setPhone(String phone) {
         sendKeys(phoneInput, phone);
+        return this;
     }
 
     public void checkUseSameAddress(boolean useSame) {
@@ -119,58 +105,7 @@ public class CheckoutAddressFormSection extends BasePage {
     }
 
     public void clickContinueButton(WebDriver driver) {
-            click(continueButton);
-    }
-
-    public static class Builder {
-        private String company;
-        private String vatNumber;
-        private String address;
-        private String addressComplement;
-        private String postalCode;
-        private String city;
-        private String phone;
-
-        public Builder setCompany(String company) {
-            this.company = company;
-            return this;
-        }
-
-        public Builder setVatNumber(String vatNumber) {
-            this.vatNumber = vatNumber;
-            return this;
-        }
-
-        public Builder setAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public Builder setAddressComplement(String addressComplement) {
-            this.addressComplement = addressComplement;
-            return this;
-        }
-
-        public Builder setPostalCode(String postalCode) {
-            this.postalCode = postalCode;
-            return this;
-        }
-
-        public Builder setCity(String city) {
-            this.city = city;
-            return this;
-        }
-
-        public Builder setPhone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public CheckoutAddressFormSection build(WebDriver driver) {
-            CheckoutAddressFormSection section = new CheckoutAddressFormSection(driver, this);
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.elementToBeClickable(section.phoneInput));
-            return section;
-        }
+        click(continueButton);
     }
 }
+

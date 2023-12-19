@@ -1,57 +1,51 @@
 package tests.basket;
 
 import base.UrlProvider;
-import driver.DriverSetUp;
-import model.Basket;
-import model.BasketLine;
-import model.Product;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObject.basket.BasketPage;
-import pageObject.home.HomePage;
-import pageObject.product.ProductElementMiniature;
-import pageObject.product.ProductPage;
-import utils.basket.BasketHandler;
-
-import java.math.BigDecimal;
-import java.util.Map;
-import java.util.Random;
+import step.basket.BasketStep;
 
 public class BasketGenericTest extends BasketSetUp {
 
     @Test
     public void shouldCheckBasket() {
+        driver.get(UrlProvider.HOME_URL.getUrl());
 
-            for (int i = 0; i < 10; i++) {
-                BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
-            }
-            driver.get(UrlProvider.BASKET_URL.getUrl());
-            BasketHandler.verifyBasketContents(testBasket, basketPage);
-            BasketHandler.verifyTotalPrice(testBasket, basketPage);
+        for (int i = 0; i < 10; i++) {
+            with(BasketStep.class)
+                    .addRandomProductToBasket(expectedBasket);
+        }
+        driver.get(UrlProvider.BASKET_URL.getUrl());
+        with(BasketStep.class).verifyBasketContents(expectedBasket);
+        with(BasketStep.class).verifyTotalPrice(expectedBasket);
 
     }
 
     @Test
     public void shouldRemoveProductsFromBasket() {
 
-        BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
-        BasketHandler.addRandomProductToBasket(driver, homePage, testBasket);
+        with(BasketStep.class)
+                .addRandomProductToBasket(expectedBasket);
+        with(BasketStep.class)
+                .addRandomProductToBasket(expectedBasket);
 
         driver.get(UrlProvider.BASKET_URL.getUrl());
 
-        BasketHandler.verifyTotalPrice(testBasket, basketPage);
+        with(BasketStep.class)
+                .verifyTotalPrice(expectedBasket);
 
-        basketPage.removeProduct(testBasket.getProducts().keySet().iterator().next());
-        testBasket.removeProduct(testBasket.getProducts().keySet().iterator().next());
+        with(BasketStep.class).removeProduct(expectedBasket.getProducts().keySet().iterator().next());
+        expectedBasket.removeProduct(expectedBasket.getProducts().keySet().iterator().next());
 
-        BasketHandler.verifyTotalPrice(testBasket, basketPage);
+        with(BasketStep.class)
+                .verifyTotalPrice(expectedBasket);
 
-        basketPage.removeProduct(testBasket.getProducts().keySet().iterator().next());
-        testBasket.removeProduct(testBasket.getProducts().keySet().iterator().next());
+        with(BasketStep.class).removeProduct(expectedBasket.getProducts().keySet().iterator().next());
+        expectedBasket.removeProduct(expectedBasket.getProducts().keySet().iterator().next());
 
-        Assertions.assertThat(basketPage.isEmptyBasketLabelDisplayed()).as("Check if empty basket label is displayed").isTrue();
+        Assertions.assertThat(at(BasketPage.class)
+                .isEmptyBasketLabelDisplayed()).as("Check if empty basket label is displayed").isTrue();
     }
 
 }

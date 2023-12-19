@@ -2,16 +2,15 @@ package pageObject.product;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
+import pageObject.base.BasePage;
 
-@AllArgsConstructor
-@NoArgsConstructor
-public class ProductElementMiniature {
 
-    private WebElement productElement;
+public class ProductElementMiniature extends BasePage {
 
     @FindBy(css = ".h3.product-title a")
     private WebElement titleElement;
@@ -19,10 +18,14 @@ public class ProductElementMiniature {
     @FindBy(css = ".price")
     private WebElement price;
 
-    public ProductElementMiniature(WebElement productElement) {
-        this.productElement = productElement;
-        PageFactory.initElements(new DefaultElementLocatorFactory(productElement), this);
+    public ProductElementMiniature(WebDriver driver, WebElement element) {
+        super(driver, element);
     }
+
+    public ProductElementMiniature(WebDriver driver) {
+        super(driver);
+    }
+
 
     public String getTitle() {
         return titleElement.getText().trim();
@@ -38,7 +41,7 @@ public class ProductElementMiniature {
 
     public void selectProduct(String desiredProductName) {
         if (getTitle().equalsIgnoreCase(desiredProductName)) {
-            titleElement.click();
+            click(titleElement);
         }
     }
 }

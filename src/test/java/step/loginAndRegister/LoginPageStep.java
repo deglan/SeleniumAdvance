@@ -1,15 +1,24 @@
-package utils.loginAndRegister;
+package step.loginAndRegister;
 
 import configuration.TestContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pageObject.base.BasePage;
 import pageObject.loginAndRegister.LoginPage;
 
 
-public class LoginPageHandler {
+public class LoginPageStep extends BasePage {
 
 
     private LoginPage loginPage;
+
+    public LoginPageStep(WebDriver driver, WebElement element) {
+        super(driver, element);
+    }
+
+    public LoginPageStep(WebDriver driver) {
+        super(driver);
+    }
 
     public WebElement getErrorMessage() {
         return loginPage.getErrorMessage();

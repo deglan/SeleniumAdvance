@@ -1,14 +1,24 @@
-package utils.loginAndRegister;
+package step.loginAndRegister;
 
 import model.User;
 import model.component.user.UserFactory;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import pageObject.base.BasePage;
 import pageObject.loginAndRegister.RegisterPage;
 
 
-public class RegisterPageHandler {
+public class RegisterPageStep extends BasePage {
 
-    public void fillUpRegistrationCorrect(WebDriver driver) {
+    public RegisterPageStep(WebDriver driver, WebElement element) {
+        super(driver, element);
+    }
+
+    public RegisterPageStep(WebDriver driver) {
+        super(driver);
+    }
+
+    public void fillUpRegistrationCorrect() {
         User randomUser = UserFactory.getRandomUser();
         RegisterPage registerPage = new RegisterPage(driver);
         fillRegistrationForm(registerPage, randomUser);

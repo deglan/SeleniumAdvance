@@ -1,22 +1,21 @@
-package utils.checkout;
+package step.checkout;
 
 import configuration.TestContext;
-import lombok.NoArgsConstructor;
 import org.openqa.selenium.WebDriver;
 import pageObject.checkout.section.CheckoutAddressFormSection;
 
-@NoArgsConstructor
-public class CheckoutAddressFormHandler {
+public class CheckoutAddressFormStep extends CheckoutAddressFormSection {
 
     private CheckoutAddressFormSection addressFormSection;
 
-    public CheckoutAddressFormHandler(WebDriver driver) {
-        this.addressFormSection = new CheckoutAddressFormSection(driver);
+    public CheckoutAddressFormStep(WebDriver driver) {
+        super(driver);
     }
 
-    public void changeCountry(String country) {
-        if ("Poland".equals(country) || "United States".equals(country)) {
 
+    public void changeCountry(String country) {
+        addressFormSection = new CheckoutAddressFormStep(driver);
+        if ("Poland".equals(country) || "United States".equals(country)) {
             addressFormSection.selectCountry(country);
         } else {
             throw new IllegalArgumentException("Wrong country value: " + country);
@@ -24,15 +23,14 @@ public class CheckoutAddressFormHandler {
     }
 
     public void fillAndSubmitAddressForm(TestContext testContext, WebDriver driver) {
-        CheckoutAddressFormSection form = new CheckoutAddressFormSection.Builder()
-                .setCompany(testContext.getProperty("user.company"))
+        CheckoutAddressFormSection form = new CheckoutAddressFormSection(driver);
+        form.setCompany(testContext.getProperty("user.company"))
                 .setVatNumber(testContext.getProperty("user.vatNumber"))
                 .setAddress(testContext.getProperty("user.address"))
                 .setAddressComplement(testContext.getProperty("user.addressComplement"))
                 .setPostalCode(testContext.getProperty("user.zipCode"))
                 .setCity(testContext.getProperty("user.city"))
-                .setPhone(testContext.getProperty("user.phone"))
-                .build(driver);
+                .setPhone(testContext.getProperty("user.phone"));
         form.clickContinueButton(driver);
     }
 }

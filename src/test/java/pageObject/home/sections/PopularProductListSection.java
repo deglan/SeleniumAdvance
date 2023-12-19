@@ -25,7 +25,7 @@ public class PopularProductListSection extends BasePage {
 
     public List<ProductElementMiniature> getProductElements() {
         return productMiniatureElements.stream()
-                .map(ProductElementMiniature::new)
+                .map(element -> new ProductElementMiniature(driver, element))
                 .collect(Collectors.toList());
     }
 

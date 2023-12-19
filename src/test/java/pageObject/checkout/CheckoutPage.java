@@ -25,7 +25,7 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = ".add-address a")
     private WebElement addNewAddressLink;
 
-    @FindBy(css = "a[href='http://146.59.32.4/index.php?controller=order&newAddress=invoice']")
+    @FindBy(css = "a[href$='?controller=order&newAddress=invoice']")
     private WebElement addNewInvoiceAddressLink;
 
     @FindBy(css = "a[data-link-action='different-invoice-address']")

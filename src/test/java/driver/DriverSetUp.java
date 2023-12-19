@@ -2,12 +2,15 @@ package driver;
 
 
 import configuration.TestContext;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.base.BasePage;
+import step.base.StepBase;
 
 import java.time.Duration;
 
@@ -15,7 +18,7 @@ import java.time.Duration;
 public class DriverSetUp {
 
     protected static TestContext testContext = TestContext.getInstance();
-    protected static WebDriver driver;
+    protected WebDriver driver;
     protected WebDriverWait wait;
 
 
@@ -45,6 +48,16 @@ public class DriverSetUp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @SneakyThrows
+    public <T extends BasePage> T at(Class<T> pageType) {
+        return pageType.getDeclaredConstructor(WebDriver.class).newInstance(driver);
+    }
+
+    @SneakyThrows
+    public <T extends StepBase> T with(Class<T> step) {
+        return step.getDeclaredConstructor(WebDriver.class).newInstance(driver);
     }
 }
 

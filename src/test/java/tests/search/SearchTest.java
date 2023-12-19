@@ -1,20 +1,23 @@
 package tests.search;
 
 import base.UrlProvider;
+import driver.DriverSetUp;
 import org.junit.jupiter.api.Test;
+import pageObject.home.HomePage;
+import pageObject.home.sections.SearchResultsSection;
 import pageObject.home.sections.SearchWidgetSection;
+import step.search.SearchPageStep;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SearchTest extends SearchSetUp {
+public class SearchTest extends DriverSetUp {
 
     @Test
     public void shouldSearchDropDown() {
         driver.get(UrlProvider.HOME_URL.getUrl());
 
-        searchPageHandler.performSearch(testContext);
-        assertThat(searchPageHandler.isSearchQueryInAllDropdownItems(testContext))
+        at(SearchPageStep.class).performSearch(testContext);
+        assertThat(at(SearchPageStep.class).isSearchQueryInAllDropdownItems(testContext))
                 .as("Check if all dropdown items contain the search query")
                 .isTrue();
     }
@@ -24,12 +27,13 @@ public class SearchTest extends SearchSetUp {
         driver.get(UrlProvider.HOME_URL.getUrl());
 
 
-        String randomProductName = homePage.getProductListSection().getRandomProductName();
+        String randomProductName = at(HomePage.class).getProductListSection().getRandomProductName();
 
-        SearchWidgetSection searchWidget = homePage.getSearchWidgetSection();
+        SearchWidgetSection searchWidget = at(HomePage.class).getSearchWidgetSection();
         searchWidget.performSearch(randomProductName);
 
-        assertTrue(searchResultsSection.isProductNameInSearchResults(randomProductName),
-                "Product with name " + randomProductName + " should be present in search results.");
+        assertThat(at(SearchResultsSection.class).isProductNameInSearchResults(randomProductName))
+                .as("Product with name " + randomProductName + " should be present in search results.")
+                .isTrue();
     }
 }

@@ -1,5 +1,6 @@
 wait: 10
 browser: chrome
+max-loop: 40
 user:
   gender: Mr.
   firstName: John

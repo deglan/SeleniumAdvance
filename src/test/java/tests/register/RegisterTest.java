@@ -1,27 +1,31 @@
 package tests.register;
 
 import base.UrlProvider;
+import driver.DriverSetUp;
 import org.junit.jupiter.api.Test;
+import pageObject.loginAndRegister.RegisterPage;
+import step.loginAndRegister.RegisterPageStep;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class RegisterTest extends RegisterSetUp {
+public class RegisterTest extends DriverSetUp {
 
     @Test
     public void shouldRegisterCorrectly() {
         driver.get(UrlProvider.REGISTER_URL.getUrl());
-        registerPageHandler.fillUpRegistrationCorrect(driver);
+        at(RegisterPageStep.class).fillUpRegistrationCorrect();
         assertEquals(UrlProvider.HOME_URL.getUrl(), driver.getCurrentUrl());
     }
 
     @Test
     public void shouldShowErrorForAlreadyRegisteredUser() {
         driver.get(UrlProvider.REGISTER_URL.getUrl());
-        registerPageHandler.fillUpRegistrationWithRegisteredUser(driver);
-        assertTrue(registerPage.getErrorMessage().isDisplayed(),
-                "Error message should be displayed for already registered user");
+        at(RegisterPageStep.class).fillUpRegistrationWithRegisteredUser(driver);
+        assertThat(at(RegisterPage.class).getErrorMessage().isDisplayed())
+                .as("Error message should be displayed for already registered user")
+                .isTrue();
     }
 
 }

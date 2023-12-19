@@ -1,6 +1,9 @@
-package pageObject.base;
+package step.base;
 
 import configuration.TestContext;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,27 +12,24 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 
-import static java.time.Duration.ofSeconds;
-
-public class BasePage {
+public class StepBase {
 
     public WebDriver driver;
     public WebDriverWait wait;
     public Actions actions;
     public TestContext testContext;
 
-    public BasePage(WebDriver driver, WebElement element) {
+    public StepBase(WebDriver driver, WebElement element) {
         initDriver(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(element), this);
     }
 
-    public BasePage(WebDriver driver) {
+    public StepBase(WebDriver driver) {
         initDriver(driver);
         PageFactory.initElements(driver, this);
     }
@@ -73,9 +73,5 @@ public class BasePage {
         return new BigDecimal(elementText);
     }
 
-    public void selectByVisibleText(WebElement element, String text) {
-        click(element);
-        new Select(element).selectByVisibleText(text);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
+
 }

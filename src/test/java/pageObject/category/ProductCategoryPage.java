@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pageObject.product.ProductElementMiniature;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,5 +72,10 @@ public class ProductCategoryPage extends CategoryBasePage {
             }
         }
         throw new NoSuchElementException("Product not found: " + productName);
+    }
+
+    public ProductElementMiniature getProductElementMiniature(String productName) {
+        WebElement productElement = getProductElement(productName);
+        return new ProductElementMiniature(driver, productElement);
     }
 }

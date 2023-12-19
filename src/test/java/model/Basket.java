@@ -2,7 +2,6 @@ package model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -18,22 +17,18 @@ public class Basket {
         this.products = new HashMap<>();
     }
 
+    public Basket(HashMap<String, BasketLine> products){
+        this.products = products;
+    }
+
     public void addProduct(Product product, int quantity) {
         BasketLine line = products.get(product.getName());
         if (line == null) {
             line = new BasketLine(product, product.getPrice().multiply(BigDecimal.valueOf(quantity)), quantity);
             products.put(product.getName(), line);
-        } else {
-            updateProductQuantity(product.getName(), line.getQuantity() + quantity);
+            return;
         }
-    }
-
-    public void updateProductQuantity(String productName, int newQuantity) {
-        BasketLine line = products.get(productName);
-        if (line != null) {
-            line.setQuantity(newQuantity);
-            line.setTotalPrice(line.getProduct().getPrice().multiply(BigDecimal.valueOf(newQuantity)));
-        }
+        line.updateQuantity(quantity);
     }
 
     public void removeProduct(String productName) {
@@ -41,10 +36,8 @@ public class Basket {
     }
 
     public BigDecimal getTotalPrice() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (BasketLine line : products.values()) {
-            total = total.add(line.getTotalPrice());
-        }
-        return total;
+        return products.values().stream()
+                .map(BasketLine::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
